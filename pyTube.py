@@ -1,6 +1,6 @@
 from pytube import YouTube
 from pytube import Search
-import os
+import os.path
 from threading import Thread
 import moviepy.editor as mp
 
@@ -25,10 +25,17 @@ def download(yt,namefile):
 # if (len(s.results) > 0):    
 #     download(s.results[0])
 
-with open('lista.txt') as listamusicas:
+with open('xae.txt') as listamusicas:
     for line in listamusicas:
-        s = Search(line)
-        if (len(s.results) > 0):    
-            download(s.results[0],line.replace("\n",""))
+        nomeMsc = line.replace("\n","")
+        if os.path.isfile("./audios/"+ nomeMsc + ".mp3"):
+            print(nomeMsc + " já foi baixada")
+        else:
+            s = Search(line)
+            if  len(s.results) > 0:
+                download(s.results[0],nomeMsc)
+
+
+
 
 
